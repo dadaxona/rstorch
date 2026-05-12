@@ -9,7 +9,6 @@ use std::env;
 use std::path::Path;
 
 pub struct Camera {
-    pipeline: gst::Pipeline,
     receiver: Receiver<Array3<u8>>,
 }
 
@@ -85,14 +84,10 @@ impl Camera {
 
         pipeline.set_state(gst::State::Playing).expect("PLAYING holatiga o'tmadi");
 
-        Camera { pipeline, receiver: rx }
+        Camera { receiver: rx }
     }
 
     pub fn read(&self) -> Option<Array3<u8>> {
         self.receiver.try_recv().ok()
-    }
-
-    pub fn release(&self) {
-        let _ = self.pipeline.set_state(gst::State::Null);
     }
 }
