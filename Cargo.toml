@@ -1,0 +1,15 @@
+[package]
+name = "rstorch"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+winapi = { version = "0.3", features = ["libloaderapi", "winbase", "minwindef"] }
+gstreamer = { version = "0.22", features = ["v1_16"] }
+gstreamer-app = "0.22"
+gstreamer-video = "0.22"
+ndarray = "0.15"
+image = "0.24"
+imageproc = "0.23"
+rusttype = "0.9"
+show-image = { version = "0.14", features = ["image"] }
