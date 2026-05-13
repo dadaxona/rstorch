@@ -1,3 +1,5 @@
+std, tokio, winapi, glib, gstreamer, wgpu, cpal 
+
 https://rustup.rs/
 
 rustup-init.exe

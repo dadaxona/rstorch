@@ -14,19 +14,19 @@ pub struct Camera {
 
 impl Camera {
     
-    pub fn new(uri: &str) -> Self {
+  pub fn new(uri: &str) -> Self {
         let manifest_dir = env!("CARGO_MANIFEST_DIR");
         let base_path = Path::new(&manifest_dir).join("src").join("rs_cv").join("msvc_x86_64");
-        
         unsafe {
             let bin_path = base_path.join("bin");
             let plugin_path = base_path.join("lib").join("gstreamer-1.0");
-            
             let path_var = env::var_os("PATH").unwrap_or_default();
             let mut paths = env::split_paths(&path_var).collect::<Vec<_>>();
-            paths.insert(0, bin_path);
+            paths.insert(0, bin_path.clone());
             env::set_var("PATH", env::join_paths(paths).unwrap());
-            env::set_var("GST_PLUGIN_PATH", plugin_path.to_str().unwrap().replace("\\\\?\\", ""));
+
+            let plugin_path_str = plugin_path.to_str().unwrap().replace("\\\\?\\", "");
+            env::set_var("GST_PLUGIN_PATH", &plugin_path_str);
             env::set_var("GST_REGISTRY_REUSE_PLUGIN_SCANNER", "no");
         }
 

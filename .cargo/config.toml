@@ -1,0 +1,4 @@
+[env]
+GSTREAMER_1_0_ROOT_MSVC_X86_64 = { value = "src/rs_cv/msvc_x86_64", relative = true }
+PKG_CONFIG_PATH = { value = "src/rs_cv/msvc_x86_64/lib/pkgconfig", relative = true }
+PATH = { value = "src/rs_cv/msvc_x86_64/bin", relative = true }
