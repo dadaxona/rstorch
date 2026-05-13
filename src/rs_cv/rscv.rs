@@ -18,7 +18,6 @@ impl Camera {
         let manifest_dir = env!("CARGO_MANIFEST_DIR");
         let base_path = Path::new(&manifest_dir).join("src").join("rs_cv").join("msvc_x86_64");
         
-        // DLL yo'llarini sozlash
         unsafe {
             let bin_path = base_path.join("bin");
             let plugin_path = base_path.join("lib").join("gstreamer-1.0");
@@ -34,15 +33,12 @@ impl Camera {
         gst::init().expect("GStreamer init xatosi");
         let (tx, rx) = channel();
 
-        // YO'LNI FORMATLASH:
         let pipeline_str = if uri.starts_with("rtsp://") {
-            // RTSP holati
             format!(
                 "rtspsrc location=\"{}\" latency=100 protocols=tcp ! decodebin ! videoconvert ! video/x-raw,format=RGB ! appsink name=sink",
                 uri
             )
         } else {
-            // Mahalliy fayl holati (src ichidan qidiradi)
             let video_path = Path::new(&manifest_dir).join("src").join(uri);
             if !video_path.exists() {
                 panic!("Fayl topilmadi: {:?}", video_path);
